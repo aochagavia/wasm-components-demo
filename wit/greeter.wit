@@ -1,0 +1,21 @@
+package ochagavia:test@0.1.0;
+
+interface host-types {
+    resource rng {
+        next-u32: func(upper-bound-inclusive: u32) -> u32;
+    }
+}
+
+interface guest-types {
+    use host-types.{rng};
+
+    resource greeter {
+        constructor(r: rng);
+        greet: func() -> string;
+    }
+}
+
+world my-world {
+    import host-types;
+    export guest-types;
+}
