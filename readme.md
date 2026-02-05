@@ -14,7 +14,6 @@ uvx componentize-py --wit-path ../../wit/greeter.wit --world my-world componenti
 
 Requirements:
 
-- `wit-bindgen-cli` (available through `cargo install --locked wit-bindgen-cli`)
 - `wasm-tools` (available through `cargo install --locked wasm-tools`)
 - Wasm core compilation target (available through `rustup target add wasm32-unknown-unknown`)
 
@@ -33,4 +32,5 @@ If you have built the components above, you can run the host application from th
 
 Regenerate the wasm bindings:
 
+- Ensure `wit-bindgen-cli` is installed (available through `cargo install --locked wit-bindgen-cli`)
 - `wit-bindgen rust wit/greeter.wit`
