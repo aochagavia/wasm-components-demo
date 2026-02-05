@@ -24,9 +24,33 @@ cargo build --release --target wasm32-unknown-unknown
 wasm-tools component new ./target/wasm32-unknown-unknown/release/component.wasm -o real-component.wasm
 ```
 
-## Run the host application
+## Run the host applications
 
-If you have built the components above, you can run the host application from the `host` directory, using `cargo run --release`.
+Note: this assumes you have built the components, as explained above.
+
+#### 1. Rust
+
+Just run `cargo run --release` from `host/rust`.
+
+#### 2. Node
+
+For completeness, there's also a Node host, which is a "port" of the Rust one.
+
+Node does not natively support components, but we can easily run them anyway thanks to `jco`, a tool that converts components to plain WebAssembly modules and some glue code. Note that the Wasm component is _not_ sandboxed in this case!
+
+Run the following commands from `host/node` to set things up:
+
+```bash
+npm install
+npx jco transpile ../../component/rust/real-component.wasm --out-dir rust-component --instantiation async
+npx jco transpile ../../component/python/component.wasm --out-dir python-component --instantiation async
+```
+
+Now you can run the actual program:
+
+```bash
+node index.js
+```
 
 ## Development
 
